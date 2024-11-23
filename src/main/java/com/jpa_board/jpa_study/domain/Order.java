@@ -12,18 +12,19 @@ import java.util.List;
 @Data
 public class Order {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue    // 지연로딩으로 하자 모든 연관 관계는 onr totone manoytoone
     @Column(name="order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name="delivery_id")
     private Delivery delivery;
 
     private LocalDateTime orderDate;
